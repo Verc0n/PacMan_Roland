@@ -1,5 +1,6 @@
 // Klasse, die einen Spielstein repräsentiert
-class Collectibles {
+class Collectibles 
+{
   int _posX;
   int _posY;
   
@@ -24,7 +25,8 @@ class Collectibles {
     return _posY;
   }
 
-  void draw() {
+  void draw() 
+  {
     int stepX = width / board._sizeX;
     int stepY = height / board._sizeY;
     

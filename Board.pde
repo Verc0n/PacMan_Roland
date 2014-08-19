@@ -3,6 +3,7 @@ class Board
   int _sizeX;
   int _sizeY;
   Collectibles[][] collectible;
+  Player player;
   
   int[][] maze = new int[22][22];
 
@@ -13,7 +14,7 @@ class Board
     _sizeX = sizeX;
     _sizeY = sizeY;
      collectible = new Collectibles[sizeX][sizeY];
-     
+     player = new Player(1,1);
      
      InitMaze();
   }
@@ -40,9 +41,9 @@ class Board
           if (collectible[x][y] != null)  collectible[x][y].draw();
         }
         rect(x*stepX, y*stepY, stepX, stepY);
-        
-        
       }
+      //Draw Player
+      player.draw();
     } 
   }
 
