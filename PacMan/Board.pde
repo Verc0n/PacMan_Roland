@@ -7,6 +7,8 @@ class Board
   int playerPosX;
   int playerPosY;
   
+
+  
   Collectibles[][] collectible;
   Player player;
   
@@ -24,10 +26,16 @@ class Board
      InitMaze();
   }
   
-   void keyPressed()
+ void keyPressed()
  {
    player.keyPressed(maze); 
  }
+ 
+ void mousePressed()
+ {
+   player.mousePressed(maze);
+ }
+ 
 
   //----UPDATE-----
   //Draw Board

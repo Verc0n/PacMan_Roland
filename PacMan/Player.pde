@@ -4,6 +4,9 @@ class Player
 
   int _posX;
   int _posY;
+  
+  int TargetX;
+  int TargetY;
     
   // constructor
   Player (int posX, int posY) 
@@ -13,10 +16,7 @@ class Player
     
      
   }
-  
-  
-  
-    
+        
   int getPosX() {
     return _posX;
   }
@@ -27,6 +27,24 @@ class Player
   
   
   //MOVEMENT
+   void mousePressed(int[][] maze)
+   {
+    int stepX = width / board._sizeX;
+    int stepY = height / board._sizeY;
+     
+     
+     
+     TargetX = mouseX / stepX;
+     TargetY = mouseY / stepX; 
+      
+     if(maze[TargetX][TargetY] == 0)
+     {
+     _posX = TargetX;
+     _posY = TargetY;   
+     }
+   }
+  
+  
   void MoveUp(int posX, int posY, int[][] maze)
   {
     if(maze[posX][posY-1] == 0)
@@ -60,16 +78,15 @@ class Player
     
     if (keyCode == UP) 
       MoveUp(_posX, _posY, maze);
-  
+    
     if (keyCode == LEFT) 
       MoveLeft(_posX, _posY, maze);
     
     if (keyCode == RIGHT) 
       MoveRight(_posX, _posY, maze);
-    }
-    
+    }   
   }
-  
+   
    void draw() 
    {     
     int stepX = width / board._sizeX;
@@ -78,9 +95,7 @@ class Player
     stroke(0);
     fill(128, 255, 255);
     ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.8, stepY*0.8);
-  }
-  
+  }  
 
-  
 }
 

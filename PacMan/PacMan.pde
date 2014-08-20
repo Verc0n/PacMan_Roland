@@ -15,10 +15,16 @@ void setup()
 }
  
 
-  void keyPressed()
+ void keyPressed()
  {
    board.keyPressed();
  }
+ 
+ void mousePressed()
+ {
+   board.mousePressed();
+ }
+ 
  
 // wird regelmäßig aufgerufen und aktualisiert den Spielstand 
 void draw() 
