@@ -44,6 +44,11 @@ class Player
      }
    }
   
+  /*
+  void drawTargetMarker(int x, int y)
+  {
+    ellipse(x, y, width / board._sizeX, height / board._sizeY )
+  }*/
   
   void MoveUp(int posX, int posY, int[][] maze)
   {

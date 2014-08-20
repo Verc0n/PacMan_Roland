@@ -7,12 +7,15 @@ class Board
   int playerPosX;
   int playerPosY;
   
-
+  int mazeWide = 22;
+  int mazeHeigth = 22;
+  
+  ArrayList<Nodes> nodes;
   
   Collectibles[][] collectible;
   Player player;
   
-  int[][] maze = new int[22][22];
+  int[][] maze = new int[mazeWide][mazeHeigth];
 
   //----INITIALIZE-----
   // Konstrukor, legt ein neues Spielfeld der Größe sizeX * sizeY an.
@@ -86,6 +89,13 @@ class Board
      
           //Set Bausteine
           if (isBaustein(i,j,_sizeX,_sizeY))CreateMaze(i,j,placeCounter);
+          
+          
+          if (maze[i][j] == 0) 
+          {
+            Nodes node = new Nodes(i, j, nodes.size());
+            nodes.add(node);
+          }
       }    
   }
    
