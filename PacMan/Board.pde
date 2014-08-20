@@ -2,6 +2,11 @@ class Board
 {
   int _sizeX;
   int _sizeY;
+  int placeCounter = 0;
+  
+  int playerPosX;
+  int playerPosY;
+  
   Collectibles[][] collectible;
   Player player;
   
@@ -19,6 +24,10 @@ class Board
      InitMaze();
   }
   
+   void keyPressed()
+ {
+   player.keyPressed(maze); 
+ }
 
   //----UPDATE-----
   //Draw Board
@@ -26,6 +35,11 @@ class Board
   {
     int stepX = width / _sizeX;
     int stepY = height / _sizeY;
+    
+    //Get PlayerPosition
+    playerPosX = player.getPosX();
+    playerPosY = player.getPosY();
+    
     
     //Draw Walls
     for (int x = 0; x < _sizeX; x++) 
@@ -42,8 +56,10 @@ class Board
         }
         rect(x*stepX, y*stepY, stepX, stepY);
       }
+      
       //Draw Player
-      player.draw();
+      
+      player.draw();   
     } 
   }
 
@@ -61,7 +77,7 @@ class Board
           maze[i][j] = 1;       
      
           //Set Bausteine
-          if (isBaustein(i,j,_sizeX,_sizeY)) Baustein_A1(i, j);
+          if (isBaustein(i,j,_sizeX,_sizeY))CreateMaze(i,j,placeCounter);
       }    
   }
    
@@ -72,6 +88,17 @@ class Board
          return true;
     else return false;
   }  
+  
+  void CreateMaze(int i, int j,int place)
+  {
+    if (place % 2 == 0)
+      Baustein_A1(i,j);
+    else 
+      Baustein_B1(i,j);
+      
+      placeCounter++;
+  }
+  
   
   //---BAUSTEINE
   void Baustein_A1(int iStart, int jStart)
@@ -84,8 +111,17 @@ class Board
       }
   }
 
-
-
+  void Baustein_B1(int iStart, int jStart)
+  {
+    for (int i = 0; i < 5; i++) 
+      for (int j = 0; j < 5; j++) 
+      {
+        if (i >= 1 && i <= 3 && j >= 0 && j <= 4)      
+          maze[iStart + i][jStart + j] = 1;
+      }
+  
+  
+  }
 
 
 
