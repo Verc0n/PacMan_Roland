@@ -2,18 +2,17 @@ class Enemy
 {
    Astar astar;
   
-  int _posX;
-  int _posY;
+  public int _posX;
+  public int _posY;
   
   int TargetX;
   int TargetY;
     
   // constructor
-  Player (int posX, int posY) 
+  public Enemy (int posX, int posY) 
   {
     _posX = posX;
     _posY = posY;
-        
   }
         
   int getPosX() {
