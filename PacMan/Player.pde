@@ -1,4 +1,3 @@
-// representiert einen Spieler mit seinen Steinen
 class Player 
 {
    Astar astar;

@@ -44,4 +44,8 @@ class Node
     return parent;  
   }
 
+  void set_Parent(int index)
+  {
+    parent = index;
+  }
 }
