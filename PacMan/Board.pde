@@ -12,6 +12,9 @@ class Board
     
   Collectibles[][] collectible;
   Player player;
+  Enemy_Follow enemy1;
+  Enemy_Random enemy2;
+  Enemy_StayAway enemy3;
   
   int[][] maze = new int[mazeWide][mazeHeigth];
 
@@ -19,10 +22,13 @@ class Board
   // Konstrukor, legt ein neues Spielfeld der Größe sizeX * sizeY an.
   Board(int sizeX, int sizeY) 
   {
-    _sizeX = sizeX;
-    _sizeY = sizeY;
+     _sizeX = sizeX;
+     _sizeY = sizeY;
      collectible = new Collectibles[sizeX][sizeY];
      player = new Player(1,1);
+     enemy1 = new Enemy_Follow(1,3);
+     enemy2 = new Enemy_Random(1,4);
+     enemy3 = new Enemy_StayAway(1,5);          
      
      InitMaze();
   }
@@ -49,7 +55,8 @@ class Board
     playerPosX = player.getPosX();
     playerPosY = player.getPosY();
     
-    
+    //BEISPIEL: Bewegung eines Enemies: enemy1.MoveDown(enemy1.getPosX(), enemy1.getPosY(), maze);
+        
     //Draw Walls
     for (int x = 0; x < _sizeX; x++) 
     {

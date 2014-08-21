@@ -5,6 +5,10 @@ class Enemy_Random extends Enemy
     super(posX, posY);
   }
 
-
+  void draw()
+  {
+    super.draw();
+  
+  }
 
 }

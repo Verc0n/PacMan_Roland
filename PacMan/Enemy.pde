@@ -13,13 +13,16 @@ class Enemy
   {
     _posX = posX;
     _posY = posY;
+    
   }
         
-  int getPosX() {
+  int getPosX() 
+  {
     return _posX;
   }
 
-  int getPosY() {
+  int getPosY() 
+  {
     return _posY;
   }
   
