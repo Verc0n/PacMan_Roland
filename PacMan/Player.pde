@@ -1,7 +1,8 @@
 // representiert einen Spieler mit seinen Steinen
 class Player 
 {
-
+   Astar astar;
+  
   int _posX;
   int _posY;
   
@@ -37,11 +38,17 @@ class Player
      TargetX = mouseX / stepX;
      TargetY = mouseY / stepX; 
       
-     if(maze[TargetX][TargetY] == 0)
+     /*if(maze[TargetX][TargetY] == 0)
      {
      _posX = TargetX;
      _posY = TargetY;   
-     }
+     }*/
+     
+     Astar astar = new Astar(maze, _posX, _posY, TargetX, TargetY);
+     
+     
+     
+     
    }
   
   /*

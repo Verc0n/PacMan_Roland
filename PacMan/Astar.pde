@@ -12,10 +12,7 @@ class Astar
   int StartY;
   int TargetX;
   int TargetY;
-  
-  int currentSquare;
    
-  
   
   //Konstruktor
   Astar (int[][] _maze, int _StartX, int _StartY, int _TargetX, int _TargetY)
@@ -25,7 +22,7 @@ class Astar
       StartY = _StartY;
       TargetX = _TargetX;
       TargetY = _TargetY;
-
+    
     //save grid
     for(int i = 0; i < 22; i++)
       for(int j = 0; j < 22; j++)
@@ -49,7 +46,7 @@ class Astar
 
   void doAstar()
   {
-    if (!TargetIsOnClosedList && OpenList.size() == 0)
+    if (!TargetIsOnCloseList() && OpenList.size() > 0)
     {
     //a) Look for the lowest F cost square on the open list. We refer to this as the current square.
     Node currentNode = OpenList.get(LowestFCost());
@@ -62,6 +59,12 @@ class Astar
     adjacentSquares(currentNode.getX(), currentNode.getY(), CloseList.size(), currentNode.getCost()); 
        
     }
+  }
+  
+  void PathBack()
+  {
+  
+  
   }
   
   int LowestFCost()
@@ -147,12 +150,12 @@ class Astar
     return -1;
   }
   
-  boolean TargetIsOnClosedList
+  boolean TargetIsOnCloseList()
   {
-    for (int i = ClosedList.size()-1; i >= 0; i--)
+    for (int i = CloseList.size()-1; i >= 0; i--)
     {
-      if (ClosedList.get(i).getX() == TargetX) 
-        if (ClosedList.get(i).getY() == TargetY) 
+      if (CloseList.get(i).getX() == TargetX) 
+        if (CloseList.get(i).getY() == TargetY) 
           return true;      
     }
     return false;
@@ -177,13 +180,5 @@ class Astar
         heuristic[i][j] = absHeuristic;
       }
   }
-
-  
-
-
-
-
-
-
 
 }

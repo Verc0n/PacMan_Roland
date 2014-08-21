@@ -39,7 +39,9 @@ class Node
     return cost + heuristic;  
   }
 
-
-
+  int get_Parent()
+  {
+    return parent;  
+  }
 
 }
