@@ -109,7 +109,7 @@ class Astar
     //add left square
     if (grid[_x - 1][_y] == 0)    
     {
-      int currNode = isOnOpenList(_x - 1, _y);         //!Überprüfen ob bereits eine Node besteht
+      int currNode = IndexOnOpenList(_x - 1, _y);         //!Überprüfen ob bereits eine Node besteht
       if (currNode == -1)
         OpenList.add(new Node(_x-1, _y, currCost + 10, heuristic[_x-1][_y], parent));    
       else 
@@ -119,7 +119,7 @@ class Astar
     //add right square
     if (grid[_x + 1][_y] == 0)
     {
-      int currNode = isOnOpenList(_x + 1, _y);         //!Überprüfen ob bereits eine Node besteht
+      int currNode = IndexOnOpenList(_x + 1, _y);         //!Überprüfen ob bereits eine Node besteht
       if (currNode == -1)
         OpenList.add(new Node(_x+1, _y, currCost + 10, heuristic[_x+1][_y], parent));
       else 
@@ -129,7 +129,7 @@ class Astar
     //add top square
     if (grid[_x][_y-1] == 0)
     {
-      int currNode = isOnOpenList(_x, _y-1);         //!Überprüfen ob bereits eine Node besteht
+      int currNode = IndexOnOpenList(_x, _y-1);         //!Überprüfen ob bereits eine Node besteht
       if (currNode == -1)
         OpenList.add(new Node(_x, _y-1, currCost + 10, heuristic[_x][_y-1], parent));
       else 
@@ -139,7 +139,7 @@ class Astar
     //add bottom square
     if (grid[_x][_y+1] == 0)
     {
-      int currNode = isOnOpenList(_x, _y+1);         //!Überprüfen ob bereits eine Node besteht
+      int currNode = IndexOnOpenList(_x, _y+1);         //!Überprüfen ob bereits eine Node besteht
       if (currNode == -1)
         OpenList.add(new Node(_x, _y+1, currCost + 10, heuristic[_x][_y+1], parent));
       else 
@@ -150,16 +150,16 @@ class Astar
   // tries to find a better Path than before  
   void BetterPath(int currNode, int x, int y, int cost, int heuristic)
   {
-    if (OpenList.get(currNode).getF() > (cost+heuristic))
+    //if (OpenList.get(currNode).getF() > (cost+heuristic))
     {
-      OpenList.get(isOnOpenList(x, y)).set_Parent(currNode);
+    //  OpenList.get(IndexOnOpenList(x, y)).set_Parent(currNode);
     }
   }
 
 
-  int isOnOpenList(int x, int y)
+  int IndexOnOpenList(int x, int y)
   {
-    for (int i = OpenList.size ()-1; i >= 0; i--)
+    for (int i = OpenList.size()-1; i >= 0; i--)
     {
       if (OpenList.get(i).getX() == x) 
         if (OpenList.get(i).getY() == y) 
@@ -189,7 +189,7 @@ class Astar
     for (int i = 0; i < 22; i++)
       for (int j = 0; j < 22; j++) 
       {
-        //create heuristic with absolut value
+        //create heuristic with absolute value
         hX = abs(j - StartX);
         hY = abs(i - StartY);
         absHeuristic = (hX + hY)*10;

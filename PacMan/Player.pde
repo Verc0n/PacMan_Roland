@@ -57,6 +57,8 @@ class Player
          PathList.add(astar.PathList.get(i));
        }
      
+       println("Pathlist: " + PathList.size ());
+     
        max = PathList.size();
        canMove = true; 
      }
@@ -153,13 +155,17 @@ class Player
     MoveAlongPath();
     
     stroke(0);
-    fill(128, 255, 255);
-    ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.8, stepY*0.8);
+    // draw target
     if (TargetX != 0 && TargetY != 0)
     {
       fill(255, 0, 255);
-      ellipse(TargetX*stepX + stepX/2, TargetY*stepY + stepY/2, stepX*0.5, stepY*0.5);
+      ellipse(TargetX*stepX + stepX/2, TargetY*stepY + stepY/2, stepX*0.3, stepY*0.3);
     }
+    // draw player
+    fill(128, 255, 255);
+    ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.8, stepY*0.8);
+    
+
   }  
 
 }

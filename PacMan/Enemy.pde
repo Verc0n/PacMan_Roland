@@ -86,7 +86,7 @@ class Enemy
       stroke(0);
       fill(r, g, b);
      
-      ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.8, stepY*0.8);
+      ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.7, stepY*0.7);
 
   }  
 
