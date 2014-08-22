@@ -39,33 +39,36 @@ class Player
   //MOVEMENT
   void mousePressed(int[][] maze)
   {
-    if (astar != null) astar = null;
-
-    int stepX = width / board._sizeX;
-    int stepY = height / board._sizeY;
-
-
-
-    TargetX = mouseX / stepX;
-    TargetY = mouseY / stepX; 
-
-    if (maze[TargetX][TargetY] == 0)
+    if (!canMove)
     {
-      Astar astar = new Astar(maze, _posX, _posY, TargetX, TargetY);
-      PathList.clear();
+      if (astar != null) astar = null;
 
-      for (int i = astar.PathList.size ()-1; i >= 0; i--) 
+      int stepX = width / board._sizeX;
+      int stepY = height / board._sizeY;
+
+
+
+      TargetX = mouseX / stepX;
+      TargetY = mouseY / stepX; 
+
+      if (maze[TargetX][TargetY] == 0)
       {
-        PathList.add(astar.PathList.get(i));
+        Astar astar = new Astar(maze, _posX, _posY, TargetX, TargetY);
+        PathList.clear();
+
+        for (int i = astar.PathList.size ()-1; i >= 0; i--) 
+        {
+          PathList.add(astar.PathList.get(i));
+        }
+
+        println("Pathlist: " + PathList.size ());
+
+        max = PathList.size();
+        canMove = true;
+      } else
+      {
+        println("DO NOT try to enter walls!");
       }
-
-      println("Pathlist: " + PathList.size ());
-
-      max = PathList.size();
-      canMove = true;
-    } else
-    {
-      println("DO NOT try to enter walls!");
     }
   }
 

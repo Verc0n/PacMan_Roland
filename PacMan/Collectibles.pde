@@ -32,7 +32,7 @@ class Collectibles
     
     stroke(128, 255, 255);
     fill(128, 255, 255);
-    ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.8, stepY*0.8);
+    ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.5, stepY*0.5);
   }
 
 }  

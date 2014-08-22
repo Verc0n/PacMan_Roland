@@ -9,12 +9,16 @@ class Board
   
   int mazeWide = 22;
   int mazeHeigth = 22;
+  
+  int PlayerX;
+  int PlayerY;
     
-  Collectibles[][] collectible;
+  boolean isLost = false;
+    
+  Collectibles collectible;
   Player player;
   Enemy_Follow enemy1;
   Enemy_Random enemy2;
-  Enemy_StayAway enemy3;
   
   int[][] maze = new int[mazeWide][mazeHeigth];
 
@@ -24,11 +28,10 @@ class Board
   {
      _sizeX = sizeX;
      _sizeY = sizeY;
-     collectible = new Collectibles[sizeX][sizeY];
+     collectible = new Collectibles(1,1);
      player = new Player(1,1);
-     enemy1 = new Enemy_Follow(1,3);
-     enemy2 = new Enemy_Random(1,4);
-     enemy3 = new Enemy_StayAway(1,5);          
+     enemy1 = new Enemy_Follow(20,1);
+     enemy2 = new Enemy_Random(1,12);  
      
      InitMaze();
   }
@@ -63,18 +66,21 @@ class Board
         else 
         {
           fill(255);
-          //Draw Collectibles
-          if (collectible[x][y] != null)  collectible[x][y].draw();
         }
         rect(x*stepX, y*stepY, stepX, stepY);
       }
       
-      //Draw Player
+      Collision();
       
+      PlayerX = player.getPosX();
+      PlayerY = player.getPosY();
+      
+            
+      //Draw Player      
       player.draw();   
       enemy1.draw();
       enemy2.draw();
-      enemy3.draw();
+      collectible.draw();
     } 
   }
 
@@ -82,6 +88,24 @@ class Board
 
   void InitMaze()
   {
+     //Create Bausteine
+     for (int i = 0; i < _sizeX; i++) 
+      for (int j = 0; j < _sizeY; j++) 
+      {  
+          //Set Bausteine
+          if (isBaustein(i,j,_sizeX,_sizeY)) CreateMaze(i,j,placeCounter);
+      }  
+    
+      //Create Space
+      for (int i = 0; i < _sizeX; i++) 
+      for (int j = 0; j < _sizeY; j++) 
+      {
+        if (i == 1 || i == _sizeX - 2)      
+          maze[i][j] = 0;
+        else if (j == 1 || j == _sizeY - 2)
+          maze[i][j] = 0;      
+      }  
+      
      //Create Wall around game
      for (int i = 0; i < _sizeX; i++) 
       for (int j = 0; j < _sizeY; j++) 
@@ -90,12 +114,33 @@ class Board
           maze[i][j] = 1;
         else if (j == 0 || j == _sizeY - 1)
           maze[i][j] = 1;       
-     
-          //Set Bausteine
-          if (isBaustein(i,j,_sizeX,_sizeY))CreateMaze(i,j,placeCounter);
-          
-         
-      }    
+      }
+  }
+   
+  int getPlayerX()
+  {
+    return PlayerX;
+  }
+   
+  int getPlayerY()
+  {
+    return PlayerY;
+  }
+  
+  void Collision()
+  {
+    // Damjan
+    if (player._posX == enemy1.getPosX() && player._posY== enemy1.getPosY()
+      ||player._posX == enemy2.getPosX() && player._posY== enemy2.getPosY())
+      {  
+        println("COLLISION! You Lose!");
+        println("Please restart the game!");
+        isLost = true;        
+      }
+      while (isLost) 
+      {
+      
+      }
   }
    
   //Testet ob es sich um einen Baustein-Startplatz handelt
@@ -105,13 +150,23 @@ class Board
          return true;
     else return false;
   }  
-  
+    
+  // Ann-Kathrin  
   void CreateMaze(int i, int j,int place)
-  {
-    if (place % 2 == 0)
-      Baustein_A1(i,j);
-    else 
-      Baustein_B1(i,j);
+  {      
+    
+      if (place == 0 || place == 5 || place == 10 || place == 3)
+      {
+        Baustein_A1(i,j);      
+      }
+      else if (place == 15 || place == 12)
+      {
+        Baustein_A2(i,j); 
+      }
+      else
+      {
+        Baustein_B1(i,j);
+      }
       
       placeCounter++;
   }
@@ -123,7 +178,17 @@ class Board
     for (int i = 0; i < 5; i++) 
       for (int j = 0; j < 5; j++) 
       {
-        if (i >= 1 && i <= 3 && j >= 1 && j <= 3)      
+        if (i >= 1 && j >= 1 && j <= 3)      
+          maze[iStart + i][jStart + j] = 1;
+      }
+  }
+
+  void Baustein_A2(int iStart, int jStart)
+  {
+    for (int i = 0; i < 5; i++) 
+      for (int j = 0; j < 5; j++) 
+      {
+        if (i >= 0 && i <= 3 && j >= 1 && j <= 3)      
           maze[iStart + i][jStart + j] = 1;
       }
   }
@@ -133,25 +198,10 @@ class Board
     for (int i = 0; i < 5; i++) 
       for (int j = 0; j < 5; j++) 
       {
-        if (i >= 1 && i <= 3 && j >= 0 && j <= 4)      
+        if (i >= 1 && i <= 4 && j >= 0 && j <= 4)      
           maze[iStart + i][jStart + j] = 1;
-      }
-  
-  
+      } 
   }
-
-
-
-
-
+    
 }
-
-  
-  
-  
-
-
-
-
-
 
