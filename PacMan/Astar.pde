@@ -3,6 +3,7 @@ class Astar
 
   ArrayList<Node> OpenList;
   ArrayList<Node> CloseList;
+  ArrayList<Vector2> PathList;
 
   int[][] grid = new int[board.mazeWide][board.mazeHeigth];
   int[][] heuristic = new int[board.mazeWide][board.mazeHeigth];
@@ -24,6 +25,7 @@ class Astar
 
     OpenList = new  ArrayList<Node>();
     CloseList = new  ArrayList<Node>();
+    PathList = new  ArrayList<Vector2>();
 
     //save grid
     for (int i = 0; i < 22; i++)
@@ -37,6 +39,7 @@ class Astar
     //add StartNode to openList
     Node startNode = new Node(StartX, StartY, 0, 0, -1 );
     OpenList.add(startNode);
+    
     if(doAstar())
     {
       // Path bauen
@@ -48,10 +51,6 @@ class Astar
       // Fehler ausgeben
       println("FEHLER!");
     }
-  }
-
-  void draw()
-  {
   }
 
   boolean doAstar()
@@ -67,20 +66,30 @@ class Astar
       OpenList.remove(lowestFCostIndex);
 
       //c) Get adjacent squares to current square & add to OpenList.
-      adjacentSquares(currentNode.getX(), currentNode.getY(), CloseList.size(), currentNode.getCost());
+      adjacentSquares(currentNode.getX(), currentNode.getY(), CloseList.indexOf(currentNode), currentNode.getCost());
     }
     return TargetIsOnCloseList();
   }
 
   void PathBack()
   {
-    
+      int i = CloseList.size()-1;
+      
+      while (i > -1)
+      {
+        int _x = CloseList.get(i).getX();
+        int _y = CloseList.get(i).getY();
+      
+        PathList.add(new Vector2(_x,_y));
+        
+        i = CloseList.get(i).get_Parent();
+      }    
   }
 
   int LowestFCost()
   {
     int lowestF = 100000;
-    int lowestNode = -1;
+    int lowestNodeIndex = -1;
 
     for (int i = OpenList.size ()-1; i >= 0; i--) 
     {
@@ -88,11 +97,11 @@ class Astar
       if (node.getF() < lowestF)
       {
         lowestF = node.getF();
-        lowestNode = i;
+        lowestNodeIndex = i;
       }
     }
 
-    return lowestNode;
+    return lowestNodeIndex;
   }
 
 

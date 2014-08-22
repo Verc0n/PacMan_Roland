@@ -7,7 +7,7 @@ class Enemy_Random extends Enemy
 
   void draw()
   {
-    super.draw();
+    super.draw(128,255,128);
   
   }
 

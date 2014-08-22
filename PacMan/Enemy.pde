@@ -53,13 +53,13 @@ class Enemy
   
 
    
-   void draw() 
+   void draw(int r, int g, int b) 
    {     
     int stepX = width / board._sizeX;
     int stepY = height / board._sizeY;
     
     stroke(0);
-    fill(128, 128, 255);
+    fill(r, g, b);
     ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.8, stepY*0.8);
   }  
 

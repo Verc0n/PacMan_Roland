@@ -7,7 +7,7 @@ class Enemy_StayAway extends Enemy
 
   void draw()
   {
-    super.draw();
+    super.draw(0,0,255);
   
   }
 

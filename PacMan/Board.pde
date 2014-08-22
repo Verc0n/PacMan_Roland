@@ -76,6 +76,9 @@ class Board
       //Draw Player
       
       player.draw();   
+      enemy1.draw();
+      enemy2.draw();
+      enemy3.draw();
     } 
   }
 

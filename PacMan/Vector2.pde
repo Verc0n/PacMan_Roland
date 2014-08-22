@@ -16,7 +16,7 @@ class Vector2
   
   int getY()
   {
-    return Y;
+    return y;
   }
   
   void setX(int index)

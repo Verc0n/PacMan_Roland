@@ -7,7 +7,7 @@ class Enemy_Follow extends Enemy
   
   void draw()
   {
-    super.draw();
+    super.draw(255,0,0);
   
   }
 

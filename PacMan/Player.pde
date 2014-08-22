@@ -7,6 +7,8 @@ class Player
   
   int TargetX;
   int TargetY;
+  
+  ArrayList<Vector2> PathList;
     
   // constructor
   Player (int posX, int posY) 
@@ -29,6 +31,8 @@ class Player
   //MOVEMENT
    void mousePressed(int[][] maze)
    {
+     if (astar != null) astar = null;
+     
     int stepX = width / board._sizeX;
     int stepY = height / board._sizeY;
      
@@ -44,11 +48,31 @@ class Player
      }*/
      
      Astar astar = new Astar(maze, _posX, _posY, TargetX, TargetY);
+     PathList = new  ArrayList<Vector2>();
      
-     
-     
-     
+     for (int i = astar.PathList.size ()-1; i >= 0; i--) 
+     {
+       PathList.add(astar.PathList.get(i));
+     }
+
+     MoveAlongPath();
    }
+  
+  void MoveAlongPath()
+  {
+    int i = 0;
+    int max = PathList.size();
+    
+     while (i < max)
+     {
+       _posX = PathList.get(i).getX();
+       _posY = PathList.get(i).getY();
+       i++;
+     }
+  
+  
+  }
+  
   
   /*
   void drawTargetMarker(int x, int y)
@@ -106,6 +130,11 @@ class Player
     stroke(0);
     fill(128, 255, 255);
     ellipse(_posX*stepX + stepX/2, _posY*stepY + stepY/2, stepX*0.8, stepY*0.8);
+    if (TargetX != 0 && TargetY != 0)
+    {
+      fill(255, 0, 255);
+      ellipse(TargetX*stepX + stepX/2, TargetY*stepY + stepY/2, stepX*0.8, stepY*0.8);
+    }
   }  
 
 }
