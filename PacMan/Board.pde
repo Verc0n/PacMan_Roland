@@ -33,10 +33,6 @@ class Board
      InitMaze();
   }
   
- void keyPressed()
- {
-   player.keyPressed(maze); 
- }
  
  void mousePressed()
  {

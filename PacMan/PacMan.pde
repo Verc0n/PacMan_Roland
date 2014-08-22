@@ -15,10 +15,6 @@ void setup()
 }
  
 
- void keyPressed()
- {
-   board.keyPressed();
- }
  
  void mousePressed()
  {
