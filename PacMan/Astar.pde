@@ -57,8 +57,8 @@ class Astar
   {
     while (!TargetIsOnCloseList () && OpenList.size() > 0)
     {
-      int lowestFCostIndex = LowestFCost();
       //a) Look for the lowest F cost square on the open list. We refer to this as the current square.
+      int lowestFCostIndex = LowestFCost();
       Node currentNode = OpenList.get(lowestFCostIndex);
 
       //b) Switch it to the closed list.     
@@ -83,6 +83,7 @@ class Astar
         PathList.add(new Vector2(_x,_y));
         
         i = CloseList.get(i).get_Parent();
+        println(i);
       }    
   }
 
@@ -91,17 +92,25 @@ class Astar
     int lowestF = 100000;
     int lowestNodeIndex = -1;
 
-    for (int i = OpenList.size ()-1; i >= 0; i--) 
+    for (int i = OpenList.size()-1; i >= 0; i--) 
     {
+      if (isAdjacent)
+      {
       Node node = OpenList.get(i);
       if (node.getF() < lowestF)
       {
         lowestF = node.getF();
         lowestNodeIndex = i;
       }
+      }
     }
 
     return lowestNodeIndex;
+  }
+  
+  boolean isAdjacent()
+  {
+  
   }
 
 

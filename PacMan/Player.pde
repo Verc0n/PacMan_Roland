@@ -8,6 +8,12 @@ class Player
   int TargetX;
   int TargetY;
   
+  boolean canMove = false;
+  
+  int currStep = 0;
+  int max = 0;    
+  int frameStart = frameCount;
+  
   ArrayList<Vector2> PathList;
     
   // constructor
@@ -16,7 +22,7 @@ class Player
     _posX = posX;
     _posY = posY;
     
-     
+     PathList = new  ArrayList<Vector2>();
   }
         
   int getPosX() {
@@ -41,37 +47,29 @@ class Player
      TargetX = mouseX / stepX;
      TargetY = mouseY / stepX; 
       
-     /*if(maze[TargetX][TargetY] == 0)
+     if(maze[TargetX][TargetY] == 0)
      {
-     _posX = TargetX;
-     _posY = TargetY;   
-     }*/
+       Astar astar = new Astar(maze, _posX, _posY, TargetX, TargetY);
+       PathList.clear();
      
-     Astar astar = new Astar(maze, _posX, _posY, TargetX, TargetY);
-     PathList = new  ArrayList<Vector2>();
+       for (int i = astar.PathList.size ()-1; i >= 0; i--) 
+       {
+         PathList.add(astar.PathList.get(i));
+       }
      
-     for (int i = astar.PathList.size ()-1; i >= 0; i--) 
-     {
-       PathList.add(astar.PathList.get(i));
+       max = PathList.size();
+       canMove = true; 
      }
-
-     MoveAlongPath();
+     else
+     {
+       println("DO NOT try to enter walls!");
+     }
+     
    }
   
-  void MoveAlongPath()
-  {
-    int i = 0;
-    int max = PathList.size();
-    
-     while (i < max)
-     {
-       _posX = PathList.get(i).getX();
-       _posY = PathList.get(i).getY();
-       i++;
-     }
+
   
-  
-  }
+
   
   
   /*
@@ -122,10 +120,37 @@ class Player
     }   
   }
    
+  void MoveAlongPath()
+  {        
+    if (!canMove) frameStart = frameCount;
+    
+    if (canMove && frameStart < frameCount)
+    {      
+      nextStep();
+      currStep++;
+      frameStart++;
+      if (currStep >= max)
+      {
+        currStep = 0;
+        canMove = false;
+      }
+    }
+  }
+  
+    void nextStep()
+  {
+    _posX = PathList.get(currStep).getX();
+    _posY = PathList.get(currStep).getY();
+  
+  }
+   
    void draw() 
    {     
+     if (astar != null) astar = null;
     int stepX = width / board._sizeX;
     int stepY = height / board._sizeY;
+
+    MoveAlongPath();
     
     stroke(0);
     fill(128, 255, 255);
@@ -133,7 +158,7 @@ class Player
     if (TargetX != 0 && TargetY != 0)
     {
       fill(255, 0, 255);
-      ellipse(TargetX*stepX + stepX/2, TargetY*stepY + stepY/2, stepX*0.8, stepY*0.8);
+      ellipse(TargetX*stepX + stepX/2, TargetY*stepY + stepY/2, stepX*0.5, stepY*0.5);
     }
   }  
 
