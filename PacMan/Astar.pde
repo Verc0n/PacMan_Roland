@@ -62,7 +62,7 @@ class Astar
       Node currentNode = OpenList.get(lowestFCostIndex);
 
       //b) Switch it to the closed list.     
-      CloseList.add(currentNode);      //! currentSquare Object?
+      CloseList.add(currentNode);      
       OpenList.remove(lowestFCostIndex);
 
       //c) Get adjacent squares to current square & add to OpenList.
@@ -93,32 +93,19 @@ class Astar
     int lowestNodeIndex = -1;
 
     for (int i = OpenList.size()-1; i >= 0; i--) 
-    {
-      if (isAdjacent)
-      {
+    {      
       Node node = OpenList.get(i);
       if (node.getF() < lowestF)
       {
         lowestF = node.getF();
         lowestNodeIndex = i;
-      }
-      }
+      } 
     }
-
     return lowestNodeIndex;
   }
   
-  boolean isAdjacent()
+  void adjacentSquares(int _x, int _y, int parent, int currCost)
   {
-  
-  }
-
-
-  void adjacentSquares(int _x, int _y, int parent, int currCost)      //! Ein Objekt übergeben?
-  {
-    //int _x = node.getX();
-    //int _y = node.getY();
-
     //add left square
     if (grid[_x - 1][_y] == 0)    
     {
@@ -136,7 +123,7 @@ class Astar
       if (currNode == -1)
         OpenList.add(new Node(_x+1, _y, currCost + 10, heuristic[_x+1][_y], parent));
       else 
-        BetterPath(currNode, _x+1, _y, currCost, heuristic[_x-1][_y]);
+        BetterPath(currNode, _x+1, _y, currCost, heuristic[_x+1][_y]);
     }
 
     //add top square
@@ -146,7 +133,7 @@ class Astar
       if (currNode == -1)
         OpenList.add(new Node(_x, _y-1, currCost + 10, heuristic[_x][_y-1], parent));
       else 
-        BetterPath(currNode, _x, _y-1, currCost, heuristic[_x-1][_y]);
+        BetterPath(currNode, _x, _y-1, currCost, heuristic[_x][_y-1]);
     }
 
     //add bottom square
@@ -156,7 +143,7 @@ class Astar
       if (currNode == -1)
         OpenList.add(new Node(_x, _y+1, currCost + 10, heuristic[_x][_y+1], parent));
       else 
-        BetterPath(currNode, _x, _y+1, currCost, heuristic[_x-1][_y]);
+        BetterPath(currNode, _x, _y+1, currCost, heuristic[_x][_y+1]);
     }
   }
 
@@ -205,7 +192,7 @@ class Astar
         //create heuristic with absolut value
         hX = abs(j - StartX);
         hY = abs(i - StartY);
-        absHeuristic = hX + hY;
+        absHeuristic = (hX + hY)*10;
 
         //write in heuristic_grid
         heuristic[i][j] = absHeuristic;
