@@ -1,6 +1,9 @@
 class Astar
 {
-
+   // basic idea and information from:
+   // http://www.policyalmanac.org/games/aStarTutorial.htm
+  
+  
   ArrayList<Node> OpenList;
   ArrayList<Node> CloseList;
   ArrayList<Vector2> PathList;
@@ -66,7 +69,7 @@ class Astar
       OpenList.remove(lowestFCostIndex);
 
       //c) Get adjacent squares to current square & add to OpenList.
-      adjacentSquares(currentNode.getX(), currentNode.getY(), CloseList.indexOf(currentNode), currentNode.getCost());
+      adjacentSquares(currentNode);
     }
     return TargetIsOnCloseList();
   }
@@ -104,8 +107,13 @@ class Astar
     return lowestNodeIndex;
   }
   
-  void adjacentSquares(int _x, int _y, int parent, int currCost)
+  void adjacentSquares(Node currentNode)
   {
+    int _x = currentNode.getX();
+    int _y = currentNode.getY();
+    int currCost = currentNode.getCost();
+    int parent = CloseList.indexOf(currentNode);
+    
     //add left square
     if (grid[_x - 1][_y] == 0)    
     {
@@ -150,9 +158,9 @@ class Astar
   // tries to find a better Path than before  
   void BetterPath(int currNode, int x, int y, int cost, int heuristic)
   {
-    //if (OpenList.get(currNode).getF() > (cost+heuristic))
+    if (OpenList.get(currNode).getF() > (cost+heuristic))
     {
-    //  OpenList.get(IndexOnOpenList(x, y)).set_Parent(currNode);
+      OpenList.get(IndexOnOpenList(x, y)).set_Parent(CloseList.size()-1);
     }
   }
 
